@@ -55,30 +55,32 @@ class Drone(db.Model):
     id = db.Column(db.String, primary_key = True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
-    price = db.Column(db.Numeric(precision=10,scale=2))
-    camera_quality = db.Column(db.String(150), nullable = True)
-    flight_time = db.Column(db.String(100), nullable = True)
-    max_speed = db.Column(db.String(100))
-    dimensions = db.Column(db.String(100))
-    weight = db.Column(db.String(50))
-    cost_of_prod = db.Column(db.Numeric(precision=10, scale=2))
-    series = db.Column(db.String(150))
+    comics_appeared_in = db.Column(db.Numeric(precision=10,scale=2))
+    charCreation_date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+    super_power = db.Column(db.String(100), nullable = True)
+    team_affiliation = db.Column(db.String(100))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+    
+    # dimensions = db.Column(db.String(100))
+    # weight = db.Column(db.String(50))
+    # cost_of_prod = db.Column(db.Numeric(precision=10, scale=2))
+    # series = db.Column(db.String(150))
     # drone = db.relationship('Drone', backref = 'owner', lazy = True)
 
-    def __init__(self,name,description,price, camera_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token, id = ''):
+    def __init__(self,name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token, id = ''):
         self.id = self.set_id()
         self.name = name
         self.description = description
-        self.price = price
-        self.camera_quality = camera_quality
-        self.flight_time = flight_time
-        self.max_speed = max_speed
-        self.dimensions = dimensions
-        self.weight = weight
-        self.cost_of_prod = cost_of_prod
-        self.series = series
+        self.comics_appeared_in = comics_appeared_in
+        self.charCreation_date = charCreation_date
+        self.super_power = super_power
+        self.team_affiliation = team_affiliation
         self.user_token = user_token
+        # self.dimensions = dimensions
+        # self.weight = weight
+        # self.cost_of_prod = cost_of_prod
+        # self.series = series
+        
 
     def set_id(self):
         return secrets.token_urlsafe()
@@ -90,7 +92,7 @@ class Drone(db.Model):
 # Creation of API Schema via the Marshmallow Object
 class DroneSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'name','description', 'price', 'camera_quality', 'flight_time', 'max_speed', 'dimensions', 'weight', 'cost_of_prod', 'series']
+        fields = ['id', 'name','description', 'comics_appeared_in', 'charCreation_date', 'super_power', 'team_affiliation']
 
 
 drone_schema = DroneSchema()

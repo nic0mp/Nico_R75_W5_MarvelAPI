@@ -11,25 +11,21 @@ def getdata(current_user_token):
     return { 'some': "value" , 
             'other': 'Data' }
 
-# CREATE DRONE ENDPOINT
+# CREATE MARVEL CHARACTER ENDPOINT
 @api.route('/drones', methods = ['POST'])
 @token_required
 def create_drone(current_user_token):
     name = request.json['name']
     description = request.json['description']
-    price = request.json['price']
-    cam_quality = request.json['cam_quality']
-    flight_time = request.json['flight_time']
-    max_speed = request.json['max_speed']
-    dimensions = request.json['dimensions']
-    weight = request.json['weight']
-    cost_of_prod = request.json['cost_of_prod']
-    series = request.json['series']
+    comics_appeared_in = request.json['comics_appeared_in']
+    charCreation_date = request.json['charCreation_date']
+    super_power = request.json['super_power']
+    team_affiliation = request.json['team_affiliation']
     user_token = current_user_token.token
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    drone = Drone(name,description,price, cam_quality,flight_time,max_speed,dimensions, weight,cost_of_prod,series,user_token = user_token )
+    drone = Drone(name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token = user_token )
     db.session.add(drone)
     db.session.commit()
 
@@ -37,7 +33,7 @@ def create_drone(current_user_token):
     return jsonify(response)
 
 
-# RETRIEVE ALL DRONEs ENDPOINT
+# RETRIEVE ALL MARVEL CHARACTERs ENDPOINT
 @api.route('/drones', methods = ['GET'])
 @token_required
 def get_drones(current_user_token):
@@ -47,7 +43,7 @@ def get_drones(current_user_token):
     return jsonify(response)  
     
 
-# RETRIEVE ONE Drone ENDPOINT
+# RETRIEVE ONE MARVEL CHARACTER ENDPOINT
 @api.route('/drones/<id>', methods = ['GET'])
 @token_required
 def get_drone(current_user_token, id):
@@ -60,7 +56,7 @@ def get_drone(current_user_token, id):
         return jsonify({"message": "Valid Token Required"}),401
 
 
-# UPDATE DRONE ENDPOINT
+# UPDATE MARVEL CHARACTER ENDPOINT
 @api.route('/drones/<id>', methods = ['POST','PUT'])
 @token_required
 def update_drone(current_user_token,id):
@@ -68,14 +64,10 @@ def update_drone(current_user_token,id):
 
     drone.name = request.json['name']
     drone.description = request.json['description']
-    drone.price = request.json['price']
-    drone.cam_quality = request.json['cam_quality']
-    drone.flight_time = request.json['flight_time']
-    drone.max_speed = request.json['max_speed']
-    drone.dimensions = request.json['dimensions']
-    drone.weight = request.json['weight']
-    drone.cost_of_prod = request.json['cost_of_prod']
-    drone.series = request.json['series']
+    drone.comics_appeared_in = request.json['comics_appeared_in']
+    drone.charCreation_date = request.json['charCreation_date']
+    drone.super_power = request.json['super_power']
+    drone.team_affiliation = request.json['team_affiliation']
     drone.user_token = current_user_token.token
 
     db.session.commit()
@@ -83,7 +75,7 @@ def update_drone(current_user_token,id):
     return jsonify(response)
 
 
-# DELETE DRONE ENDPOINT
+# DELETE MARVEL CHARACTER ENDPOINT
 @api.route('/drones/<id>', methods = ['DELETE'])
 @token_required
 def delete_drone(current_user_token, id):
