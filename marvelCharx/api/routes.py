@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from marvelCharx.helpers import token_required
-from marvelCharx.models import db,User,Drone,drone_schema,drones_schema
+from marvelCharx.models import db,User,Character,character_schema,characters_schema
 
 api = Blueprint('api',__name__,url_prefix='/api')
 
@@ -12,9 +12,9 @@ def getdata(current_user_token):
             'other': 'Data' }
 
 # CREATE MARVEL CHARACTER ENDPOINT
-@api.route('/drones', methods = ['POST'])
+@api.route('/characters', methods = ['POST'])
 @token_required
-def create_drone(current_user_token):
+def create_character(current_user_token):
     name = request.json['name']
     description = request.json['description']
     comics_appeared_in = request.json['comics_appeared_in']
@@ -25,63 +25,63 @@ def create_drone(current_user_token):
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    drone = Drone(name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token = user_token )
-    db.session.add(drone)
+    character = Character(name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token = user_token )
+    db.session.add(character)
     db.session.commit()
 
-    response = drone_schema.dump(drone)
+    response = character_schema.dump(character)
     return jsonify(response)
 
 
 # RETRIEVE ALL MARVEL CHARACTERs ENDPOINT
-@api.route('/drones', methods = ['GET'])
+@api.route('/character', methods = ['GET'])
 @token_required
-def get_drones(current_user_token):
+def get_character(current_user_token):
     owner = current_user_token.token
-    drones = Drone.query.filter_by(user_token = owner).all()
-    response = drones_schema.dump(drones)
+    character = Character.query.filter_by(user_token = owner).all()
+    response = character_schema.dump(character)
     return jsonify(response)  
     
 
 # RETRIEVE ONE MARVEL CHARACTER ENDPOINT
-@api.route('/drones/<id>', methods = ['GET'])
+@api.route('/characters/<id>', methods = ['GET'])
 @token_required
-def get_drone(current_user_token, id):
+def get_character(current_user_token, id):
     owner = current_user_token.token
     if owner == current_user_token.token:
-        drone = Drone.query.get(id)
-        response = drone_schema.dump(drone)
+        character = Character.query.get(id)
+        response = character_schema.dump(character)
         return jsonify(response)
     else:
         return jsonify({"message": "Valid Token Required"}),401
 
 
 # UPDATE MARVEL CHARACTER ENDPOINT
-@api.route('/drones/<id>', methods = ['POST','PUT'])
+@api.route('/characters/<id>', methods = ['POST','PUT'])
 @token_required
-def update_drone(current_user_token,id):
-    drone = Drone.query.get(id) # GET DRONE INSTANCE
+def update_character(current_user_token,id):
+    character = Character.query.get(id) # GET DRONE INSTANCE
 
-    drone.name = request.json['name']
-    drone.description = request.json['description']
-    drone.comics_appeared_in = request.json['comics_appeared_in']
-    drone.charCreation_date = request.json['charCreation_date']
-    drone.super_power = request.json['super_power']
-    drone.team_affiliation = request.json['team_affiliation']
-    drone.user_token = current_user_token.token
+    character.name = request.json['name']
+    character.description = request.json['description']
+    character.comics_appeared_in = request.json['comics_appeared_in']
+    character.charCreation_date = request.json['charCreation_date']
+    character.super_power = request.json['super_power']
+    character.team_affiliation = request.json['team_affiliation']
+    character.user_token = current_user_token.token
 
     db.session.commit()
-    response = drone_schema.dump(drone)
+    response = character_schema.dump(character)
     return jsonify(response)
 
 
 # DELETE MARVEL CHARACTER ENDPOINT
-@api.route('/drones/<id>', methods = ['DELETE'])
+@api.route('/characters/<id>', methods = ['DELETE'])
 @token_required
-def delete_drone(current_user_token, id):
-    drone = Drone.query.get(id)
-    db.session.delete(drone)
+def delete_character(current_user_token, id):
+    character = Character.query.get(id)
+    db.session.delete(character)
     db.session.commit()
     
-    response = drone_schema.dump(drone)
+    response = character_schema.dump(character)
     return jsonify(response)

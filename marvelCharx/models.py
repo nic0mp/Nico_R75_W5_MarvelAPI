@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     g_auth_verify = db.Column(db.Boolean, default = False)
     token = db.Column(db.String, default = '', unique = True )
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
-    drone = db.relationship('Drone', backref = 'owner', lazy = True)
+    # drone = db.relationship('Drone', backref = 'owner', lazy = True)
 
     def __init__(self,email,first_name = '', last_name = '', id = '', password = '', token = '', g_auth_verify = False):
         self.id = self.set_id()
@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'User {self.email} has been added to the database'
 
-class Drone(db.Model):
+class Character(db.Model):
     id = db.Column(db.String, primary_key = True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
@@ -61,11 +61,7 @@ class Drone(db.Model):
     team_affiliation = db.Column(db.String(100))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
     
-    # dimensions = db.Column(db.String(100))
-    # weight = db.Column(db.String(50))
-    # cost_of_prod = db.Column(db.Numeric(precision=10, scale=2))
-    # series = db.Column(db.String(150))
-    # drone = db.relationship('Drone', backref = 'owner', lazy = True)
+ 
 
     def __init__(self,name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token, id = ''):
         self.id = self.set_id()
@@ -76,24 +72,20 @@ class Drone(db.Model):
         self.super_power = super_power
         self.team_affiliation = team_affiliation
         self.user_token = user_token
-        # self.dimensions = dimensions
-        # self.weight = weight
-        # self.cost_of_prod = cost_of_prod
-        # self.series = series
-        
+
 
     def set_id(self):
         return secrets.token_urlsafe()
 
     def __repr__(self):
-        return f'The following Drone has been added: {self.name}'
+        return f'The following Character has been added: {self.name}'
 
 
 # Creation of API Schema via the Marshmallow Object
-class DroneSchema(ma.Schema):
+class CharacterSchema(ma.Schema):
     class Meta:
         fields = ['id', 'name','description', 'comics_appeared_in', 'charCreation_date', 'super_power', 'team_affiliation']
 
 
-drone_schema = DroneSchema()
-drones_schema = DroneSchema(many = True)
+character_schema = CharacterSchema()
+characters_schema = CharacterSchema(many = True)
