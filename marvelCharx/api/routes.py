@@ -18,14 +18,14 @@ def create_character(current_user_token):
     name = request.json['name']
     description = request.json['description']
     comics_appeared_in = request.json['comics_appeared_in']
-    charCreation_date = request.json['charCreation_date']
+    # charCreation_date = request.json['charCreation_date']
     super_power = request.json['super_power']
     team_affiliation = request.json['team_affiliation']
     user_token = current_user_token.token
 
     print(f'BIG TESTER: {current_user_token.token}')
 
-    character = Character(name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token = user_token )
+    character = Character(name,description,comics_appeared_in,super_power,team_affiliation,user_token = current_user_token.token )
     db.session.add(character)
     db.session.commit()
 
@@ -34,12 +34,12 @@ def create_character(current_user_token):
 
 
 # RETRIEVE ALL MARVEL CHARACTERs ENDPOINT
-@api.route('/character', methods = ['GET'])
+@api.route('/characters', methods = ['GET'])
 @token_required
 def get_characters(current_user_token):
     owner = current_user_token.token
     character = Character.query.filter_by(user_token = owner).all()
-    response = character_schema.dump(character)
+    response = characters_schema.dump(character)
     return jsonify(response)  
     
 
@@ -65,7 +65,7 @@ def update_character(current_user_token,id):
     character.name = request.json['name']
     character.description = request.json['description']
     character.comics_appeared_in = request.json['comics_appeared_in']
-    character.charCreation_date = request.json['charCreation_date']
+    # character.charCreation_date = request.json['charCreation_date']
     character.super_power = request.json['super_power']
     character.team_affiliation = request.json['team_affiliation']
     character.user_token = current_user_token.token

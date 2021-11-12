@@ -22,7 +22,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'auth.signin'
 ma.init_app(app)
 
-migrate = Migrate(app,root_db)
+migrate = Migrate(app,root_db,compare_type=True)
 
 CORS(app)
 app.json_encoder = JSONEncoder

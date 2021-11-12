@@ -63,12 +63,12 @@ class Character(db.Model):
     
  
 
-    def __init__(self,name,description,comics_appeared_in, charCreation_date,super_power,team_affiliation,user_token, id = ''):
+    def __init__(self,name,description,comics_appeared_in, super_power,team_affiliation,user_token, id = ''):
         self.id = self.set_id()
         self.name = name
         self.description = description
         self.comics_appeared_in = comics_appeared_in
-        self.charCreation_date = charCreation_date
+        # self.charCreation_date = charCreation_date
         self.super_power = super_power
         self.team_affiliation = team_affiliation
         self.user_token = user_token
