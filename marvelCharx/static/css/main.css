@@ -98,6 +98,7 @@ ul#horizontal-list a:nth-last-child(1){
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
     clip-path:polygon(0 0, 100% 0, 100% 80vh, 0 100%);
     position: relative;
+    
 }
 
 .header-text{

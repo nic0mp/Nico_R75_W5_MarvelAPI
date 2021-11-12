@@ -55,7 +55,7 @@ class Character(db.Model):
     id = db.Column(db.String, primary_key = True)
     name = db.Column(db.String(150))
     description = db.Column(db.String(200), nullable = True)
-    comics_appeared_in = db.Column(db.Numeric(precision=10,scale=2))
+    comics_appeared_in = db.Column(db.String(200), nullable = True)
     charCreation_date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     super_power = db.Column(db.String(100), nullable = True)
     team_affiliation = db.Column(db.String(100))
