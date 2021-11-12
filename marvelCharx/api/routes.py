@@ -36,7 +36,7 @@ def create_character(current_user_token):
 # RETRIEVE ALL MARVEL CHARACTERs ENDPOINT
 @api.route('/character', methods = ['GET'])
 @token_required
-def get_character(current_user_token):
+def get_characters(current_user_token):
     owner = current_user_token.token
     character = Character.query.filter_by(user_token = owner).all()
     response = character_schema.dump(character)

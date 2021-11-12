@@ -1,7 +1,7 @@
 from functools import wraps
 import secrets
 from flask import request, jsonify, json
-from marvelCharx.models import Drone, User
+from marvelCharx.models import Character, User
 import decimal
 
 def token_required(our_flask_function):
