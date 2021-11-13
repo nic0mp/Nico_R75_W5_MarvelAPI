@@ -1,5 +1,6 @@
 /*Nav Styles */
 .ct-nav{
+    background-color: #ed1d24;
     display: flex;
     justify-content: space-between;
 }
@@ -12,6 +13,7 @@
 }
 
 ul#horizontal-list{
+    
     min-width: 696px;
     list-style: none;
     padding-top: 20px;
@@ -21,7 +23,7 @@ ul#horizontal-list li, ul#horizontal-list a{
     display:inline;
     text-decoration:none;
     padding: 0.5vw;
-    color:black;
+    color:white;
 }
 
 ul#horizontal-list a:nth-last-child(1){
@@ -33,10 +35,14 @@ ul#horizontal-list a:nth-last-child(1){
 
 /* Start of Hero/Header Section */
 #header-text{
+   
+    margin-top: 15%;
     padding: 2vw;
 }
 
 .header-image{
+    margin-top: 20px;
+    margin-left: 30px;
     width: 82%;
     max-width: 100%;
 }
@@ -64,9 +70,10 @@ ul#horizontal-list a:nth-last-child(1){
 /* End of Features Section */
 
 /* Community Section Styles */
+
 #Drone-image{
-    width: 50%;
-    max-width: 75%;
+    width: 80%;
+    /* max-width: 75%; */
     margin-left: 3vw;
 }
 /* End of Community Section */
@@ -79,8 +86,9 @@ ul#horizontal-list a:nth-last-child(1){
 }
 
 #footer-logo{
-    width:100%;
-    max-width:100%;
+    margin-top: 10%;
+    width:75%;
+    max-width:75%;
 }
 
 #footer{
@@ -108,4 +116,13 @@ ul#horizontal-list a:nth-last-child(1){
     left: 20rem;
     top: 10rem;
     color: white;
+}
+
+/* Sign in , Sign up */
+h1{
+   margin-left: 7%; 
+}
+
+#signpage{
+
 }
